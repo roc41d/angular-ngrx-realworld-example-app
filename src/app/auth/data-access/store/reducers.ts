@@ -6,7 +6,7 @@ import { routerNavigationAction } from '@ngrx/router-store';
 const initialState: AuthState = {
   isSubmitting: false,
   currentUser: undefined,
-  isLoggedIn: false,
+  isLoading: false,
   validationErrors: null,
 };
 
@@ -44,7 +44,24 @@ const authFeature = createFeature({
       isSubmitting: false,
       validationErrors: action.errors,
     })),
-    on(routerNavigationAction, (state) => ({...state, validationErrors: null})), // clear navigation errors on router change
+    on(authActions.getCurrentUser, (state) => ({
+      ...state,
+      isLoading: true,
+    })),
+    on(authActions.getCurrentUserSuccess, (state, action) => ({
+      ...state,
+      isLoading: false,
+      currentUser: action.currentUser,
+    })),
+    on(authActions.getCurrentUserFailure, (state) => ({
+      ...state,
+      isLoading: false,
+      currentUser: null,
+    })),
+    on(routerNavigationAction, (state) => ({
+      ...state,
+      validationErrors: null,
+    })), // clear navigation errors on router change
   ),
 });
 
@@ -53,6 +70,6 @@ export const {
   reducer: authReducer,
   selectIsSubmitting,
   selectCurrentUser,
-  selectIsLoggedIn,
+  selectIsLoading,
   selectValidationErrors,
 } = authFeature;

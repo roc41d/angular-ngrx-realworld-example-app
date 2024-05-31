@@ -4,6 +4,6 @@ import { CurrentUser } from '../../shared/interfaces/current-user';
 export interface AuthState {
   isSubmitting: boolean;
   currentUser: CurrentUser | null | undefined;
-  isLoggedIn: boolean;
+  isLoading: boolean;
   validationErrors: BackendErrors | null;
 }

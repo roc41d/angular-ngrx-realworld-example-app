@@ -14,5 +14,9 @@ export const authActions = createActionGroup({
     Login: props<{ request: LoginRequest }>(),
     'Login success': props<{ currentUser: CurrentUser }>(),
     'Login failure': props<{ errors: BackendErrors }>(),
+
+    'Get current user': emptyProps(),
+    'Get current user success': props<{currentUser: CurrentUser}>(),
+    'Get current user failure': emptyProps(),
   },
 });
