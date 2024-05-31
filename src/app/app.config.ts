@@ -8,7 +8,9 @@ import { provideState, provideStore } from '@ngrx/store';
 import { routes } from './app.routes';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { authFeatureKey, authReducer } from './auth/data-access/store/reducers';
+import * as authEffects from './auth/data-access/store/effects';
 import { provideHttpClient } from '@angular/common/http';
+import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideStore(),
     provideState(authFeatureKey, authReducer),
+    provideEffects(authEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
