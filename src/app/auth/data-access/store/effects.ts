@@ -42,3 +42,39 @@ export const redirectAfterRegisterEffect = createEffect(
   },
   { functional: true, dispatch: false },
 );
+
+export const loginEffect = createEffect(
+  (
+    actions$ = inject(Actions),
+    authService = inject(AuthService),
+    persistanceService = inject(PersistanceService),
+  ) => {
+    return actions$.pipe(
+      ofType(authActions.login),
+      switchMap(({ request }) => {
+        return authService.login(request).pipe(
+          map((currentUser) => {
+            persistanceService.set('accessToken', currentUser.token);
+            return authActions.loginSuccess({ currentUser });
+          }),
+          catchError((errorResp: HttpErrorResponse) =>
+            of(authActions.loginFailure({ errors: errorResp.error.errors })),
+          ),
+        );
+      }),
+    );
+  },
+  { functional: true },
+);
+
+export const redirectAfterLoginEffect = createEffect(
+  (actions$ = inject(Actions), router = inject(Router)) => {
+    return actions$.pipe(
+      ofType(authActions.loginSuccess),
+      tap(() => {
+        router.navigateByUrl('/');
+      }),
+    );
+  },
+  { functional: true, dispatch: false },
+);
