@@ -7,9 +7,10 @@
           <a href="/login">Have an account?</a>
         </p>
 
-        <ul class="error-messages">
-            Validation errors here
-        </ul>
+        @if (backendErrors$ | async; as backendErrors) {
+        <app-backend-error-messages [backendErrors]="backendErrors" />
+        }
+
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <fieldset class="form-group">
             <input
@@ -35,7 +36,12 @@
               formControlName="password"
             />
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right">Sign up</button>
+          <button
+            class="btn btn-lg btn-primary pull-xs-right"
+            [disabled]="isSubmitting$ | async"
+          >
+            Sign up
+          </button>
         </form>
       </div>
     </div>

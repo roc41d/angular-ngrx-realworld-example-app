@@ -4,13 +4,25 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { authActions } from '../data-access/store/actions';
+import {
+  selectIsSubmitting,
+  selectValidationErrors,
+} from '../data-access/store/reducers';
+import { combineLatest } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { BackendErrorMessagesComponent } from '../../shared/ui/backend-error-messages.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    AsyncPipe,
+    BackendErrorMessagesComponent,
+  ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   private fb = inject(FormBuilder);
@@ -22,10 +34,13 @@ export class RegisterComponent {
     password: ['', Validators.required],
   });
 
+  isSubmitting$ = this.store.select(selectIsSubmitting);
+  backendErrors$ = this.store.select(selectValidationErrors);
+
   onSubmit() {
     const request: RegisterRequest = {
       user: this.form.getRawValue(),
-    }
+    };
     this.store.dispatch(authActions.register({ request }));
   }
 }
