@@ -1,18 +1,15 @@
-import { RegisterRequest } from './../interfaces/register-request';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { authActions } from '../data-access/store/actions';
-import {
-  selectIsSubmitting,
-  selectValidationErrors,
-} from '../data-access/store/reducers';
-import { AsyncPipe } from '@angular/common';
 import { BackendErrorMessagesComponent } from '../../shared/ui/backend-error-messages.component';
+import { Store } from '@ngrx/store';
+import { selectIsSubmitting, selectValidationErrors } from '../data-access/store/reducers';
+import { authActions } from '../data-access/store/actions';
+import { LoginRequest } from '../interfaces/login-request';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-login',
   standalone: true,
   imports: [
     RouterLink,
@@ -20,15 +17,14 @@ import { BackendErrorMessagesComponent } from '../../shared/ui/backend-error-mes
     AsyncPipe,
     BackendErrorMessagesComponent,
   ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
 })
-export class RegisterComponent {
+export class LoginComponent {
   private fb = inject(FormBuilder);
   private store = inject(Store);
 
   form = this.fb.nonNullable.group({
-    username: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
@@ -37,9 +33,10 @@ export class RegisterComponent {
   backendErrors$ = this.store.select(selectValidationErrors);
 
   onSubmit() {
-    const request: RegisterRequest = {
+    const request: LoginRequest = {
       user: this.form.getRawValue(),
     };
-    this.store.dispatch(authActions.register({ request }));
+    this.store.dispatch(authActions.login({ request }));
   }
+
 }
