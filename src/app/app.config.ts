@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideState, provideStore } from '@ngrx/store';
+import { provideRouterStore } from '@ngrx/router-store';
 import { routes } from './app.routes';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { authFeatureKey, authReducer } from './auth/data-access/store/reducers';
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideStore(),
+    provideRouterStore(),
     provideState(authFeatureKey, authReducer),
     provideEffects(authEffects),
     provideStoreDevtools({
