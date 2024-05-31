@@ -10,14 +10,15 @@ import { routes } from './app.routes';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { authFeatureKey, authReducer } from './auth/data-access/store/reducers';
 import * as authEffects from './auth/data-access/store/effects';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
+import { authInterceptor } from './shared/data-access/authInterceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideStore(),
     provideRouterStore(),
     provideState(authFeatureKey, authReducer),
