@@ -18,6 +18,8 @@ import {
   feedReducer,
 } from './shared/feature/feed/data-acess/store/reducers';
 import * as feedEffect from './shared/feature/feed/data-acess/store/effects';
+import { popularTagsFeatureKey, popularTagsReducer } from './shared/feature/popular-tags/data-access/store/reducers';
+import * as popularTagsEffect from './shared/feature/popular-tags/data-access/store/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,7 +30,8 @@ export const appConfig: ApplicationConfig = {
     provideRouterStore(),
     provideState(authFeatureKey, authReducer),
     provideState(feedFeatureKey, feedReducer),
-    provideEffects(authEffects, feedEffect),
+    provideState(popularTagsFeatureKey, popularTagsReducer),
+    provideEffects(authEffects, feedEffect, popularTagsEffect),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

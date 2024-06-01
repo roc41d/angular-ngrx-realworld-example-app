@@ -1,4 +1,5 @@
+import { PopularTagType } from '../../../interfaces/popular-tag.type';
 
 export interface PopularTagResponse {
-    tags: string[];
+  tags: PopularTagType[];
 }
