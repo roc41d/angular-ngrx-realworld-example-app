@@ -1,7 +1,7 @@
 @if (data$ | async; as data) { @if (data.isLoading) {
-<div>Loading...</div>
+<app-loading />
 } @if (data.error) {
-<div>Something went wrong</div>
+<app-error-message [message]="data.error" />
 } @if (data.feed) { @for (article of data.feed.articles; track $index) {
 <div class="article-preview">
   <div class="article-meta">
@@ -20,7 +20,7 @@
     <h1>{{ article.title }}</h1>
     <p>{{ article.description }}</p>
     <span>Read more...</span>
-    TAG LIST
+    <app-tag-list [tags]="article.tagList" />
   </a>
 </div>
 } PAGINATION } }
