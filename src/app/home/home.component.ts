@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { BannerComponent } from '../shared/ui/banner.component';
 import { FeedComponent } from '../shared/feature/feed/feed.component';
+import { PopularTagsComponent } from '../shared/feature/popular-tags/popular-tags.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BannerComponent, FeedComponent],
+  imports: [BannerComponent, FeedComponent, PopularTagsComponent],
   template: `
     <div class="home-page">
       <app-banner />
@@ -17,9 +18,7 @@ import { FeedComponent } from '../shared/feature/feed/feed.component';
           </div>
 
           <div class="col-md-3">
-            <div class="sidebar">
-              <p>Popular Tags</p>
-            </div>
+            <app-popular-tags />
           </div>
         </div>
       </div>
