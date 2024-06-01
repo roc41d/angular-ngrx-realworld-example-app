@@ -15,7 +15,7 @@ import { ActivatedRoute, Params } from '@angular/router';
     FeedTogglerComponent,
   ],
   template: `
-    <div class="tag-feed">
+    <div class="home-page">
       <div class="container page">
         <div class="row">
           <div class="col-md-9">

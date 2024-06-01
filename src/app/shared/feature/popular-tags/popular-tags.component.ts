@@ -17,7 +17,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [AsyncPipe, LoadingComponent, ErrorMessageComponent, RouterLink],
   template: `
-    @if (data$ | async; as data) { @if (data.isLoading) {
+    @if (data$ | async; as data) { @if (!data.popularTags && data.isLoading) {
     <app-loading />
     } @if (data.error) {
     <app-error-message [message]="data.error" ] />

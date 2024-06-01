@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  inject,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { feedActions } from './data-acess/store/actions';
 import { combineLatest } from 'rxjs';
@@ -30,7 +37,7 @@ import queryString from 'query-string';
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.scss',
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, OnChanges {
   @Input({ required: true }) apiUrl: string = '';
 
   private store: Store = inject(Store);
@@ -52,6 +59,16 @@ export class FeedComponent implements OnInit {
       this.currentPage = Number(params['page'] || '1');
       this.fetchFeed();
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const isApiUrlChanged =
+      !changes['apiUrl'].firstChange &&
+      changes['apiUrl'].currentValue !== changes['apiUrl'].previousValue;
+
+    if (isApiUrlChanged) {
+      this.fetchFeed();
+    }
   }
 
   fetchFeed(): void {
