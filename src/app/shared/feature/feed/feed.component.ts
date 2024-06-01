@@ -14,6 +14,7 @@ import { LoadingComponent } from '../../ui/loading.component';
 import { TagListComponent } from '../../ui/tag-list.component';
 import { PaginationComponent } from '../pagination.component';
 import { environment } from '../../../../environments/environment';
+import queryString from 'query-string';
 
 @Component({
   selector: 'app-feed',
@@ -44,16 +45,24 @@ export class FeedComponent implements OnInit {
 
   limit: number = environment.limit;
   baseUrl: string = this.router.url.split('?')[0];
-  currentPage: number = 0
+  currentPage: number = 0;
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
-      this.currentPage = Number(params['page'] || '1')
-      this.fetchFeed()
-    })
+      this.currentPage = Number(params['page'] || '1');
+      this.fetchFeed();
+    });
   }
 
-  fetchFeed() {
-    this.store.dispatch(feedActions.getFeed({ url: this.apiUrl }));
+  fetchFeed(): void {
+    const offset = this.currentPage * this.limit - this.limit;
+    const parsedUrl = queryString.parseUrl(this.apiUrl);
+    const stringifiedParams = queryString.stringify({
+      limit: this.limit,
+      offset,
+      ...parsedUrl.query,
+    });
+    const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`;
+    this.store.dispatch(feedActions.getFeed({ url: apiUrlWithParams }));
   }
 }
