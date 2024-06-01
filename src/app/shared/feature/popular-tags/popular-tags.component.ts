@@ -10,11 +10,12 @@ import {
 import { popularTagsActions } from './data-access/store/actions';
 import { AsyncPipe } from '@angular/common';
 import { LoadingComponent } from '../../ui/loading.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-popular-tags',
   standalone: true,
-  imports: [AsyncPipe, LoadingComponent, ErrorMessageComponent],
+  imports: [AsyncPipe, LoadingComponent, ErrorMessageComponent, RouterLink],
   template: `
     @if (data$ | async; as data) { @if (data.isLoading) {
     <app-loading />
@@ -25,7 +26,9 @@ import { LoadingComponent } from '../../ui/loading.component';
       <p>Popular Tags</p>
       <div class="tag-list">
         @for (tag of data.popularTags; track $index) {
-        <a href="" class="tag-pill tag-default">{{ tag }}</a>
+        <a [routerLink]="['/tags', tag]" class="tag-default tag-pill">{{
+          tag
+        }}</a>
         }
       </div>
     </div>

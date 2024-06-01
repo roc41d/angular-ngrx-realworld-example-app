@@ -22,4 +22,9 @@ export const routes: Routes = [
         (m) => m.YourFeedComponent,
       ),
   },
+  {
+    path: 'tags/:slug',
+    loadComponent: () =>
+      import('./tag-feed/tag-feed.component').then((m) => m.TagFeedComponent),
+  },
 ];
