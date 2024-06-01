@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { BannerComponent } from '../shared/ui/banner.component';
+import { FeedComponent } from '../shared/feature/feed/feed.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BannerComponent],
+  imports: [BannerComponent, FeedComponent],
   template: `
     <div class="home-page">
       <app-banner />
@@ -12,7 +13,7 @@ import { BannerComponent } from '../shared/ui/banner.component';
       <div class="container page">
         <div class="row">
           <div class="col-md-9">
-            Feeds
+            <app-feed />
           </div>
 
           <div class="col-md-3">
