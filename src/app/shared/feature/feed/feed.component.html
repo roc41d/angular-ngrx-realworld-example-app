@@ -23,4 +23,13 @@
     <app-tag-list [tags]="article.tagList" />
   </a>
 </div>
-} PAGINATION } }
+}
+
+<app-pagination
+  [total]="data.feed.articlesCount"
+  [limit]="limit"
+  [url]="baseUrl"
+  [currentPage]="currentPage"
+ />
+
+} }
