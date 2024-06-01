@@ -13,7 +13,7 @@ import { FeedComponent } from '../shared/feature/feed/feed.component';
       <div class="container page">
         <div class="row">
           <div class="col-md-9">
-            <app-feed />
+            <app-feed [apiUrl]="apiUrl" />
           </div>
 
           <div class="col-md-3">
@@ -26,4 +26,6 @@ import { FeedComponent } from '../shared/feature/feed/feed.component';
     </div>
   `,
 })
-export class HomeComponent {}
+export class HomeComponent {
+  public apiUrl = '/articles';
+}
