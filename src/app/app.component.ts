@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './shared/ui/header.component';
+import { HeaderComponent } from './shared/feature/header.component';
 import { FooterComponent } from './shared/ui/footer.component';
 import { Store } from '@ngrx/store';
 import { authActions } from './auth/data-access/store/actions';

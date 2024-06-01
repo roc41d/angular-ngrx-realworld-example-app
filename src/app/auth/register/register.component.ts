@@ -9,7 +9,7 @@ import {
   selectValidationErrors,
 } from '../data-access/store/reducers';
 import { AsyncPipe } from '@angular/common';
-import { BackendErrorMessagesComponent } from '../../shared/ui/backend-error-messages.component';
+import { BackendErrorMessagesComponent } from '../../shared/feature/backend-error-messages.component';
 
 @Component({
   selector: 'app-register',

@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { BackendErrorMessagesComponent } from '../../shared/ui/backend-error-messages.component';
+import { BackendErrorMessagesComponent } from '../../shared/feature/backend-error-messages.component';
 import { Store } from '@ngrx/store';
 import { selectIsSubmitting, selectValidationErrors } from '../data-access/store/reducers';
 import { authActions } from '../data-access/store/actions';
