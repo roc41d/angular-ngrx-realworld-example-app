@@ -15,7 +15,11 @@
       <span class="date">{{ article.createdAt }}</span>
     </div>
     <div class="pull-xs-right">
-      <app-add-to-favorites />
+      <app-add-to-favorites
+        [isFavorited]="article.favorited"
+        [articleSlug]="article.slug"
+        [favoritesCount]="article.favoritesCount"
+      />
     </div>
   </div>
   <a [routerLink]="['/articles', article.slug]" class="preview-link">
@@ -32,6 +36,6 @@
   [limit]="limit"
   [url]="baseUrl"
   [currentPage]="currentPage"
- />
+/>
 
 } }
