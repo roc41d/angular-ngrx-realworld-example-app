@@ -28,6 +28,11 @@ export const routes: Routes = [
       import('./tag-feed/tag-feed.component').then((m) => m.TagFeedComponent),
   },
   {
+    path: 'articles/new',
+    loadChildren: () =>
+      import('./articles/article.routes').then((m) => m.createArticleRoutes),
+  },
+  {
     path: 'articles/:slug',
     loadChildren: () =>
       import('./articles/article.routes').then((m) => m.articleRoutes),
