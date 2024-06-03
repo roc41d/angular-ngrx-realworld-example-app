@@ -8,6 +8,11 @@ import {
 } from './feature/article/data-access/store/reducers';
 import * as articleEffects from './feature/article/data-access/store/effects';
 import { CreateArticleComponent } from './feature/create-article/create-article.component';
+import {
+  createArticleFeatureKey,
+  createArticleReducer,
+} from './feature/create-article/data-access/store/reducers';
+import * as createArticleEffects from './feature/create-article/data-access/store/effects';
 
 export const articleRoutes: Route[] = [
   {
@@ -24,5 +29,9 @@ export const createArticleRoutes: Route[] = [
   {
     path: '',
     component: CreateArticleComponent,
+    providers: [
+      provideEffects(createArticleEffects),
+      provideState(createArticleFeatureKey, createArticleReducer),
+    ],
   },
 ];

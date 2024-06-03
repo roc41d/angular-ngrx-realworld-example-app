@@ -1,1 +1,8 @@
-<p>create-article works!</p>
+@if (data$ | async; as data) {
+<app-article-form
+  [initialValues]="initialValues"
+  [isSubmitting]="data.isSubmitting"
+  [errors]="data.backendErrors"
+  (articleSubmit)="onSubmit($event)"
+/>
+}
