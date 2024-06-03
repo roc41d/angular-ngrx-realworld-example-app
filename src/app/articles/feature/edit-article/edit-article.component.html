@@ -1,1 +1,12 @@
-<p>edit-article works!</p>
+@if (data$ | async; as data) { @if (data.isLoading) {
+<app-loading />
+} @if (data.initialValues) {
+<app-article-form
+  [initialValues]="data.initialValues"
+  [isSubmitting]="data.isSubmitting"
+  [errors]="data.backendErrors"
+  (articleSubmit)="onSubmit($event)"
+/>
+} @else {
+<h4>Article data not found!</h4>
+} }
