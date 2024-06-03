@@ -4,6 +4,7 @@ import { ArticleResponse } from '../interfaces/article-response';
 import { Article } from '../../shared/interfaces/article';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { ArticleRequest } from '../interfaces/article-request';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,12 @@ export class ArticlesService {
   deleteArticle(slug: string): Observable<{}> {
     const fullUrl = `${environment.apiUrl}/articles/${slug}`;
     return this.http.delete(fullUrl);
+  }
+
+  createArticle(articleRequest: ArticleRequest): Observable<Article> {
+    const fullUrl = `${environment.apiUrl}/articles`;
+    return this.http
+      .post<ArticleResponse>(fullUrl, articleRequest)
+      .pipe(map((response) => response.article));
   }
 }
