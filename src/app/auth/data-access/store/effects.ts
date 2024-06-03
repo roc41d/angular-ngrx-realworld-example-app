@@ -80,29 +80,52 @@ export const redirectAfterLoginEffect = createEffect(
 );
 
 export const getCurrentUserEffect = createEffect(
-    (
-      actions$ = inject(Actions),
-      authService = inject(AuthService),
-      persistanceService = inject(PersistanceService)
-    ) => {
-      return actions$.pipe(
-        ofType(authActions.getCurrentUser),
-        switchMap(() => {
-          const token = persistanceService.get('accessToken')
-  
-          if (!token) {
-            return of(authActions.getCurrentUserFailure())
-          }
-          return authService.getCurrentUser().pipe(
-            map((currentUser) => {
-              return authActions.getCurrentUserSuccess({currentUser})
-            }),
-            catchError(() => {
-              return of(authActions.getCurrentUserFailure())
-            })
-          )
-        })
-      )
-    },
-    {functional: true}
-  )
+  (
+    actions$ = inject(Actions),
+    authService = inject(AuthService),
+    persistanceService = inject(PersistanceService),
+  ) => {
+    return actions$.pipe(
+      ofType(authActions.getCurrentUser),
+      switchMap(() => {
+        const token = persistanceService.get('accessToken');
+
+        if (!token) {
+          return of(authActions.getCurrentUserFailure());
+        }
+        return authService.getCurrentUser().pipe(
+          map((currentUser) => {
+            return authActions.getCurrentUserSuccess({ currentUser });
+          }),
+          catchError(() => {
+            return of(authActions.getCurrentUserFailure());
+          }),
+        );
+      }),
+    );
+  },
+  { functional: true },
+);
+
+export const updateCurrentUserEffect = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService)) => {
+    return actions$.pipe(
+      ofType(authActions.updateCurrentUser),
+      switchMap(({ currentUserRequest }) => {
+        return authService.updateCurrentUser(currentUserRequest).pipe(
+          map((currentUser) =>
+            authActions.updateCurrentUserSuccess({ currentUser }),
+          ),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              authActions.updateCurrentUserFailure({
+                errors: errorResponse.error.errors,
+              }),
+            );
+          }),
+        );
+      }),
+    );
+  },
+  { functional: true },
+);
