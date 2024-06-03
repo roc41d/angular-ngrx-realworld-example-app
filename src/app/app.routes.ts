@@ -42,4 +42,9 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./articles/article.routes').then((m) => m.editArticleRoutes),
   },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./settings/settings.component').then((m) => m.SettingsComponent),
+  },
 ];
