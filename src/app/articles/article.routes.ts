@@ -13,6 +13,7 @@ import {
   createArticleReducer,
 } from './feature/create-article/data-access/store/reducers';
 import * as createArticleEffects from './feature/create-article/data-access/store/effects';
+import { EditArticleComponent } from './feature/edit-article/edit-article.component';
 
 export const articleRoutes: Route[] = [
   {
@@ -33,5 +34,12 @@ export const createArticleRoutes: Route[] = [
       provideEffects(createArticleEffects),
       provideState(createArticleFeatureKey, createArticleReducer),
     ],
+  },
+];
+
+export const editArticleRoutes: Route[] = [
+  {
+    path: '',
+    component: EditArticleComponent,
   },
 ];

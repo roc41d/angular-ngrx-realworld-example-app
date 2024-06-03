@@ -37,4 +37,9 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./articles/article.routes').then((m) => m.articleRoutes),
   },
+  {
+    path: 'articles/:slug/edit',
+    loadChildren: () =>
+      import('./articles/article.routes').then((m) => m.editArticleRoutes),
+  },
 ];
