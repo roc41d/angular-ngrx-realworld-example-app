@@ -1,1 +1,80 @@
-<p>article works!</p>
+@if (data$ | async; as data) {
+<div class="article-page">
+  @if (data.article) {
+  <div class="banner">
+    <div class="container">
+      <h1>{{ data.article.title }}</h1>
+
+      <div class="article-meta">
+        <a [routerLink]="['/profiles', data.article.author.username]"
+          ><img [src]="data.article.author.image"
+        /></a>
+        <div class="info">
+          <a
+            [routerLink]="['/profiles', data.article.author.username]"
+            class="author"
+          >
+            {{ data.article.author.username }}
+          </a>
+          <span class="date">{{
+            data.article.createdAt | date : 'MMMM d, y'
+          }}</span>
+        </div>
+        @if (data.isAuthor) {
+        <a
+          [routerLink]="['/articles', data.article.slug, 'edit']"
+          class="btn btn-sm btn-outline-secondary"
+        >
+          <i class="ion-edit"></i> Edit Article
+        </a>
+        &nbsp;&nbsp;
+        <button class="btn btn-sm btn-outline-danger">
+          <i class="ion-trash-a"></i> Delete Article
+        </button>
+        } @else {
+        <button
+          class="btn btn-sm"
+          [ngClass]="
+            data.article.author.following ? 'btn-secondary' : 'btn-outline-secondary'
+          "
+        >
+          <i class="ion-plus-round"></i>
+          &nbsp; {{ data.article.author.following ? 'Unfollow' : 'Follow' }}
+          {{ data.article.author.username }}
+        </button>
+        &nbsp;&nbsp;
+        <button
+          class="btn btn-sm"
+          [ngClass]="
+            data.article.favorited ? 'btn-primary' : 'btn-outline-primary'
+          "
+        >
+          <i class="ion-heart"></i>
+          &nbsp;
+          {{ data.article.favorited ? 'Unfavorite Post' : 'Favorite Post' }}
+          <span class="counter">({{ data.article.favoritesCount }})</span>
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+  }
+
+  <div class="container page">
+    @if (data.isLoading) {
+    <app-loading />
+    } @if (data.error) {
+    <app-error-message />
+    } @if (data.article) {
+    <div class="row article-content">
+      <div class="col-xs-12">
+        <div>
+          <p>{{ data.article.body }}</p>
+        </div>
+        <app-tag-list [tags]="data.article.tagList" />
+      </div>
+    </div>
+    }
+  </div>
+</div>
+}
