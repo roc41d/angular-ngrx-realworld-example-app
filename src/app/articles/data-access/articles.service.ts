@@ -30,4 +30,14 @@ export class ArticlesService {
       .post<ArticleResponse>(fullUrl, articleRequest)
       .pipe(map((response) => response.article));
   }
+
+  editArticle(
+    slug: string,
+    articleRequest: ArticleRequest,
+  ): Observable<Article> {
+    const fullUrl = `${environment.apiUrl}/articles/${slug}`;
+    return this.http
+      .put<ArticleResponse>(fullUrl, articleRequest)
+      .pipe(map((response) => response.article));
+  }
 }
