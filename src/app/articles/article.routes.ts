@@ -8,7 +8,7 @@ import {
 } from './feature/article/data-access/store/reducers';
 import * as articleEffects from './feature/article/data-access/store/effects';
 
-export const routes: Route[] = [
+export const articleRoutes: Route[] = [
   {
     path: '',
     component: ArticleComponent,

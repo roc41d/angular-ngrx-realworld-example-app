@@ -30,6 +30,6 @@ export const routes: Routes = [
   {
     path: 'articles/:slug',
     loadChildren: () =>
-      import('./articles/article.routes').then((m) => m.routes),
+      import('./articles/article.routes').then((m) => m.articleRoutes),
   },
 ];

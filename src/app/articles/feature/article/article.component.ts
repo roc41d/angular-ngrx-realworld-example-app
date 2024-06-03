@@ -24,7 +24,7 @@ import { LoadingComponent } from '../../../shared/ui/loading.component';
     ErrorMessageComponent,
     LoadingComponent,
     DatePipe,
-    NgClass
+    NgClass,
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.scss',
@@ -58,5 +58,9 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(articleActions.getArticle({ slug: this.slug }));
+  }
+
+  deleteArticle(): void {
+    this.store.dispatch(articleActions.deleteArticle({ slug: this.slug }));
   }
 }

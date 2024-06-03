@@ -28,14 +28,16 @@
           <i class="ion-edit"></i> Edit Article
         </a>
         &nbsp;&nbsp;
-        <button class="btn btn-sm btn-outline-danger">
+        <button class="btn btn-sm btn-outline-danger" (click)="deleteArticle()">
           <i class="ion-trash-a"></i> Delete Article
         </button>
         } @else {
         <button
           class="btn btn-sm"
           [ngClass]="
-            data.article.author.following ? 'btn-secondary' : 'btn-outline-secondary'
+            data.article.author.following
+              ? 'btn-secondary'
+              : 'btn-outline-secondary'
           "
         >
           <i class="ion-plus-round"></i>
