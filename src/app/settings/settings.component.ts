@@ -31,4 +31,8 @@ export class SettingsComponent {
   onSubmit(currentUserRequest: CurrentUserRequest): void {
     this.store.dispatch(authActions.updateCurrentUser({ currentUserRequest }));
   }
+
+  logout(): void {
+    this.store.dispatch(authActions.logout());
+  }
 }
