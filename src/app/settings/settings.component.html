@@ -1,1 +1,21 @@
-<p>settings works!</p>
+@if (data$ | async; as data) { @if (data.currentUser) {
+<div class="settings-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Your Settings</h1>
+
+        <app-update-user-form
+          [currentUser]="data.currentUser"
+          [isSubmitting]="data.isSubmitting"
+          [errors]="data.backendErrors"
+          (userSubmit)="onSubmit($event)"
+        />
+
+        <hr />
+        <button class="btn btn-outline-danger">Or click here to logout.</button>
+      </div>
+    </div>
+  </div>
+</div>
+} }

@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { provideState } from '@ngrx/store';
+import { settingsFeatureKey, settingsReducer } from './settings/data-access/store/reducers';
 
 export const routes: Routes = [
   {
@@ -46,5 +48,6 @@ export const routes: Routes = [
     path: 'settings',
     loadComponent: () =>
       import('./settings/settings.component').then((m) => m.SettingsComponent),
+    providers: [provideState(settingsFeatureKey, settingsReducer)],
   },
 ];
