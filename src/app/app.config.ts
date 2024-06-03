@@ -18,8 +18,16 @@ import {
   feedReducer,
 } from './shared/feature/feed/data-acess/store/reducers';
 import * as feedEffect from './shared/feature/feed/data-acess/store/effects';
-import { popularTagsFeatureKey, popularTagsReducer } from './shared/feature/popular-tags/data-access/store/reducers';
+import {
+  popularTagsFeatureKey,
+  popularTagsReducer,
+} from './shared/feature/popular-tags/data-access/store/reducers';
 import * as popularTagsEffect from './shared/feature/popular-tags/data-access/store/effects';
+import * as addToFavoritesEffect from './shared/feature/add-to-favorites/data-access/store/effects';
+import {
+  addToFavoritesFeatureKey,
+  addToFavoritesReducer,
+} from './shared/feature/add-to-favorites/data-access/store/reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,7 +39,13 @@ export const appConfig: ApplicationConfig = {
     provideState(authFeatureKey, authReducer),
     provideState(feedFeatureKey, feedReducer),
     provideState(popularTagsFeatureKey, popularTagsReducer),
-    provideEffects(authEffects, feedEffect, popularTagsEffect),
+    provideState(addToFavoritesFeatureKey, addToFavoritesReducer),
+    provideEffects(
+      authEffects,
+      feedEffect,
+      popularTagsEffect,
+      addToFavoritesEffect,
+    ),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
