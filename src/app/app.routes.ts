@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { provideState } from '@ngrx/store';
-import { settingsFeatureKey, settingsReducer } from './settings/data-access/store/reducers';
+import {
+  settingsFeatureKey,
+  settingsReducer,
+} from './settings/data-access/store/reducers';
 
 export const routes: Routes = [
   {
@@ -49,5 +52,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./settings/settings.component').then((m) => m.SettingsComponent),
     providers: [provideState(settingsFeatureKey, settingsReducer)],
+  },
+  {
+    path: 'profiles/:username',
+    loadChildren: () =>
+      import('./user-profile/user-profile.routes').then((m) => m.routes),
   },
 ];
