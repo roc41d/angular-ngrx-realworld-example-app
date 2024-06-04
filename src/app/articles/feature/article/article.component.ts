@@ -14,6 +14,7 @@ import { ErrorMessageComponent } from '../../../shared/ui/error-message.componen
 import { TagListComponent } from '../../../shared/ui/tag-list.component';
 import { LoadingComponent } from '../../../shared/ui/loading.component';
 import { AddToFavoritesComponent } from '../../../shared/feature/add-to-favorites/add-to-favorites.component';
+import { FollowUserComponent } from '../../../shared/feature/follow-user/follow-user.component';
 
 @Component({
   selector: 'app-article',
@@ -25,6 +26,7 @@ import { AddToFavoritesComponent } from '../../../shared/feature/add-to-favorite
     ErrorMessageComponent,
     LoadingComponent,
     AddToFavoritesComponent,
+    FollowUserComponent,
     DatePipe,
     NgClass,
   ],
