@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { articleActions } from './data-access/store/actions';
 import { combineLatest, filter, map } from 'rxjs';
@@ -8,27 +8,22 @@ import {
   selectError,
   selectIsLoading,
 } from './data-access/store/reducers';
-import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { selectCurrentUser } from '../../../auth/data-access/store/reducers';
 import { ErrorMessageComponent } from '../../../shared/ui/error-message.component';
 import { TagListComponent } from '../../../shared/ui/tag-list.component';
 import { LoadingComponent } from '../../../shared/ui/loading.component';
-import { AddToFavoritesComponent } from '../../../shared/feature/add-to-favorites/add-to-favorites.component';
-import { FollowUserComponent } from '../../../shared/feature/follow-user/follow-user.component';
+import { AuthorBannerComponent } from './ui/author-banner/author-banner.component';
 
 @Component({
   selector: 'app-article',
   standalone: true,
   imports: [
     AsyncPipe,
-    RouterLink,
     TagListComponent,
     ErrorMessageComponent,
     LoadingComponent,
-    AddToFavoritesComponent,
-    FollowUserComponent,
-    DatePipe,
-    NgClass,
+    AuthorBannerComponent,
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.scss',
@@ -64,7 +59,7 @@ export class ArticleComponent implements OnInit {
     this.store.dispatch(articleActions.getArticle({ slug: this.slug }));
   }
 
-  deleteArticle(): void {
-    this.store.dispatch(articleActions.deleteArticle({ slug: this.slug }));
+  deleteArticle(slug: string): void {
+    this.store.dispatch(articleActions.deleteArticle({ slug }));
   }
 }

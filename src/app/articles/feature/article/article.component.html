@@ -4,47 +4,7 @@
   <div class="banner">
     <div class="container">
       <h1>{{ data.article.title }}</h1>
-
-      <div class="article-meta">
-        <a [routerLink]="['/profiles', data.article.author.username]"
-          ><img [src]="data.article.author.image"
-        /></a>
-        <div class="info">
-          <a
-            [routerLink]="['/profiles', data.article.author.username]"
-            class="author"
-          >
-            {{ data.article.author.username }}
-          </a>
-          <span class="date">{{
-            data.article.createdAt | date : 'MMMM d, y'
-          }}</span>
-        </div>
-        @if (data.isAuthor) {
-        <a
-          [routerLink]="['/articles', data.article.slug, 'edit']"
-          class="btn btn-sm btn-outline-secondary"
-        >
-          <i class="ion-edit"></i> Edit Article
-        </a>
-        &nbsp;&nbsp;
-        <button class="btn btn-sm btn-outline-danger" (click)="deleteArticle()">
-          <i class="ion-trash-a"></i> Delete Article
-        </button>
-        } @else {
-        <app-follow-user
-          [username]="data.article.author.username"
-          [isFollowing]="data.article.author.following"
-        />
-        &nbsp;&nbsp;
-        <app-add-to-favorites
-          [isFavorited]="data.article.favorited"
-          [articleSlug]="data.article.slug"
-          [favoritesCount]="data.article.favoritesCount"
-          [showLabel]="true"
-        />
-        }
-      </div>
+      <app-author-banner [article]="data.article" [isAuthor]="data.isAuthor" (deleteArticle)="deleteArticle($event)" />
     </div>
   </div>
   }
@@ -62,6 +22,12 @@
         </div>
         <app-tag-list [tags]="data.article.tagList" />
       </div>
+    </div>
+
+    <hr />
+
+    <div class="article-actions">
+      <app-author-banner [article]="data.article" [isAuthor]="data.isAuthor" (deleteArticle)="deleteArticle($event)" />
     </div>
     }
   </div>
