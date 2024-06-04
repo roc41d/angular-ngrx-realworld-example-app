@@ -28,6 +28,7 @@ import {
   addToFavoritesFeatureKey,
   addToFavoritesReducer,
 } from './shared/feature/add-to-favorites/data-access/store/reducers';
+import * as followUserEffect from './shared/feature/follow-user/data-access/store/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -45,6 +46,7 @@ export const appConfig: ApplicationConfig = {
       feedEffect,
       popularTagsEffect,
       addToFavoritesEffect,
+      followUserEffect,
     ),
     provideStoreDevtools({
       maxAge: 25,

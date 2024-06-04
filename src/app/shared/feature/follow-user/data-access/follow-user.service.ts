@@ -11,21 +11,21 @@ import { ProfileResponse } from '../../../interfaces/profile-response';
 export class FollowUserService {
   private http: HttpClient = inject(HttpClient);
 
-  getUrl(userName: string): string {
-    return `${environment.apiUrl}/profiles/${userName}/follow`;
+  private getUrl(username: string): string {
+    return `${environment.apiUrl}/profiles/${username}/follow`;
   }
 
-  followUser(slug: string): Observable<Profile> {
-    const url = this.getUrl(slug);
+  followUser(username: string): Observable<Profile> {
+    const url = this.getUrl(username);
     return this.http.post<ProfileResponse>(url, {}).pipe(map(this.getProfile));
   }
 
-  unfollowUnser(slug: string): Observable<Profile> {
-    const url = this.getUrl(slug);
+  unfollowUnser(username: string): Observable<Profile> {
+    const url = this.getUrl(username);
     return this.http.delete<ProfileResponse>(url).pipe(map(this.getProfile));
   }
 
-  getProfile(response: ProfileResponse): Profile {
+  private getProfile(response: ProfileResponse): Profile {
     return response.profile;
   }
 }
