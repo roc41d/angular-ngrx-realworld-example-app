@@ -1,15 +1,18 @@
-import { AsyncPipe } from '@angular/common';
+import { RegisterRequest } from '../../interfaces/register-request';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { BackendErrorMessagesComponent } from '../../shared/feature/backend-error-messages.component';
 import { Store } from '@ngrx/store';
-import { selectIsSubmitting, selectValidationErrors } from '../data-access/store/reducers';
-import { authActions } from '../data-access/store/actions';
-import { LoginRequest } from '../interfaces/login-request';
+import { authActions } from '../../data-access/store/actions';
+import {
+  selectIsSubmitting,
+  selectValidationErrors,
+} from '../../data-access/store/reducers';
+import { AsyncPipe } from '@angular/common';
+import { BackendErrorMessagesComponent } from '../../../shared/feature/backend-error-messages.component';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [
     RouterLink,
@@ -17,14 +20,15 @@ import { LoginRequest } from '../interfaces/login-request';
     AsyncPipe,
     BackendErrorMessagesComponent,
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
 })
-export class LoginComponent {
+export class RegisterComponent {
   private fb = inject(FormBuilder);
   private store = inject(Store);
 
   form = this.fb.nonNullable.group({
+    username: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
@@ -33,10 +37,9 @@ export class LoginComponent {
   backendErrors$ = this.store.select(selectValidationErrors);
 
   onSubmit() {
-    const request: LoginRequest = {
+    const request: RegisterRequest = {
       user: this.form.getRawValue(),
     };
-    this.store.dispatch(authActions.login({ request }));
+    this.store.dispatch(authActions.register({ request }));
   }
-
 }

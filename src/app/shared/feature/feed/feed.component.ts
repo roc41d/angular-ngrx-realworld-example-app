@@ -14,7 +14,7 @@ import {
   selectFeedData,
   selectIsLoading,
 } from './data-acess/store/reducers';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { ErrorMessageComponent } from '../../ui/error-message.component';
 import { LoadingComponent } from '../../ui/loading.component';
@@ -35,6 +35,7 @@ import { AddToFavoritesComponent } from '../add-to-favorites/add-to-favorites.co
     TagListComponent,
     PaginationComponent,
     AddToFavoritesComponent,
+    DatePipe,
   ],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.scss',

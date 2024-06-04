@@ -22,29 +22,32 @@ import { DatePipe } from '@angular/common';
       </div>
 
       @if (isAuthor) {
-        <a
-          [routerLink]="['/articles', article.slug, 'edit']"
-          class="btn btn-sm btn-outline-secondary"
-        >
-          <i class="ion-edit"></i> Edit Article
-        </a>
-        &nbsp;&nbsp;
-        <button class="btn btn-sm btn-outline-danger" (click)="deleteArticle.emit(article.slug)">
-          <i class="ion-trash-a"></i> Delete Article
-        </button>
-        } @else {
-        <app-follow-user
-          [username]="article.author.username"
-          [isFollowing]="article.author.following"
-        />
-        &nbsp;&nbsp;
-        <app-add-to-favorites
-          [isFavorited]="article.favorited"
-          [articleSlug]="article.slug"
-          [favoritesCount]="article.favoritesCount"
-          [showLabel]="true"
-        />
-        }
+      <a
+        [routerLink]="['/articles', article.slug, 'edit']"
+        class="btn btn-sm btn-outline-secondary"
+      >
+        <i class="ion-edit"></i> Edit Article
+      </a>
+      &nbsp;&nbsp;
+      <button
+        class="btn btn-sm btn-outline-danger"
+        (click)="deleteArticle.emit(article.slug)"
+      >
+        <i class="ion-trash-a"></i> Delete Article
+      </button>
+      } @else {
+      <app-follow-user
+        [username]="article.author.username"
+        [isFollowing]="article.author.following"
+      />
+      &nbsp;&nbsp;
+      <app-add-to-favorites
+        [isFavorited]="article.favorited"
+        [articleSlug]="article.slug"
+        [favoritesCount]="article.favoritesCount"
+        [showLabel]="true"
+      />
+      }
     </div>
   `,
 })

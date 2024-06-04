@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './feature/register/register.component';
+import { LoginComponent } from './feature/login/login.component';
 
 export const registerRoutes: Route[] = [
   {
