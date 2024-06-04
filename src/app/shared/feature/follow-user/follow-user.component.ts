@@ -4,6 +4,7 @@ import { NgClass } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { selectCurrentUser } from '../../../auth/data-access/store/reducers';
+import { followUserActions } from './data-access/store/actions';
 
 @Component({
   selector: 'app-follow-user',
@@ -32,5 +33,18 @@ export class FollowUserComponent {
 
   toggleFollowUser(): void {
     const username = encodeURIComponent(this.username);
+    this.currentUser$.subscribe((currentUser) => {
+      if (!currentUser) {
+        this.router.navigate(['/login']);
+      } else {
+        this.store.dispatch(
+          followUserActions.followUser({
+            isFollowing: this.isFollowing,
+            username,
+          }),
+        );
+        this.isFollowing = !this.isFollowing;
+      }
+    });
   }
 }
