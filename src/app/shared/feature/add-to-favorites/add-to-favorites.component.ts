@@ -19,7 +19,7 @@ import { selectIsSubmitting } from './data-access/store/reducers';
     >
       <i class="ion-heart"></i>
       @if (showLabel) { &nbsp;
-      {{ isFavorited ? 'Unfavorite Post' : 'Favorite Post' }}
+      {{ isFavorited ? 'Unfavorite ' : 'Favorite ' }} Article
       <span class="counter">({{ favoritesCount }})</span>
       } @else {
       <span>&nbsp; {{ favoritesCount }}</span>

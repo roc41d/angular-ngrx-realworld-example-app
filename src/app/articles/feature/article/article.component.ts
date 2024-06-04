@@ -13,6 +13,7 @@ import { selectCurrentUser } from '../../../auth/data-access/store/reducers';
 import { ErrorMessageComponent } from '../../../shared/ui/error-message.component';
 import { TagListComponent } from '../../../shared/ui/tag-list.component';
 import { LoadingComponent } from '../../../shared/ui/loading.component';
+import { AddToFavoritesComponent } from '../../../shared/feature/add-to-favorites/add-to-favorites.component';
 
 @Component({
   selector: 'app-article',
@@ -23,6 +24,7 @@ import { LoadingComponent } from '../../../shared/ui/loading.component';
     TagListComponent,
     ErrorMessageComponent,
     LoadingComponent,
+    AddToFavoritesComponent,
     DatePipe,
     NgClass,
   ],

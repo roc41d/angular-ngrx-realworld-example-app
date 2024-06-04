@@ -45,7 +45,15 @@
           {{ data.article.author.username }}
         </button>
         &nbsp;&nbsp;
-        <button
+
+        <app-add-to-favorites
+        [isFavorited]="data.article.favorited"
+        [articleSlug]="data.article.slug"
+        [favoritesCount]="data.article.favoritesCount"
+        [showLabel]="true"
+      />
+
+        <!-- <button
           class="btn btn-sm"
           [ngClass]="
             data.article.favorited ? 'btn-primary' : 'btn-outline-primary'
@@ -55,7 +63,7 @@
           &nbsp;
           {{ data.article.favorited ? 'Unfavorite Post' : 'Favorite Post' }}
           <span class="counter">({{ data.article.favoritesCount }})</span>
-        </button>
+        </button> -->
         }
       </div>
     </div>
