@@ -5,6 +5,8 @@ import { Article } from '../../shared/interfaces/article';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ArticleRequest } from '../interfaces/article-request';
+import { CommentsResponse } from '../feature/comments/interfaces/comments-respoonse';
+import { Comment } from '../feature/comments/interfaces/comment';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +41,12 @@ export class ArticlesService {
     return this.http
       .put<ArticleResponse>(fullUrl, articleRequest)
       .pipe(map((response) => response.article));
+  }
+
+  getComments(slug: string): Observable<Comment[]> {
+    const fullUrl = `${environment.apiUrl}/articles/${slug}/comments`;
+    return this.http
+      .get<CommentsResponse>(fullUrl)
+      .pipe(map((response) => response.comments));
   }
 }
