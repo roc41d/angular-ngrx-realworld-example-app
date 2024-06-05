@@ -58,4 +58,9 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./user-profile/user-profile.routes').then((m) => m.routes),
   },
+  {
+    path: 'profiles/:username/favorites',
+    loadChildren: () =>
+      import('./user-profile/user-profile.routes').then((m) => m.routes),
+  },
 ];

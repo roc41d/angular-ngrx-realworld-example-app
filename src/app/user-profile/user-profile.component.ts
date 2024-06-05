@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, RouterLink, RouterLinkActive } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { userProfileActions } from './data-access/store/actions';
 import { combineLatest, filter, map } from 'rxjs';
@@ -11,12 +11,13 @@ import {
 import { selectCurrentUser } from '../auth/data-access/store/reducers';
 import { Profile } from '../shared/interfaces/profile';
 import { CurrentUser } from '../shared/interfaces/current-user';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { FeedComponent } from '../shared/feature/feed/feed.component';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [AsyncPipe, JsonPipe],
+  imports: [AsyncPipe, RouterLink, RouterLinkActive, FeedComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',
 })
@@ -60,5 +61,12 @@ export class UserProfileComponent implements OnInit {
         userProfileActions.getUserProfile({ username: this.username }),
       );
     });
+  }
+
+  getApiUrl(): string {
+    const isFavorites = this.router.url.includes('favorites')
+    return isFavorites
+      ? `/articles?favorited=${this.username}`
+      : `/articles?author=${this.username}`
   }
 }
