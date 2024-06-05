@@ -29,6 +29,8 @@
     <div class="article-actions">
       <app-author-banner [article]="data.article" [isAuthor]="data.isAuthor" (deleteArticle)="deleteArticle($event)" />
     </div>
+
+    <app-comments [article]="data.article" />
     }
   </div>
 </div>
