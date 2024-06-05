@@ -11,8 +11,8 @@ export const getUserProfileEffect = createEffect(
   ) => {
     return actions$.pipe(
       ofType(userProfileActions.getUserProfile),
-      switchMap(({ slug }) => {
-        return userProfileService.getUserProfile(slug).pipe(
+      switchMap(({ username }) => {
+        return userProfileService.getUserProfile(username).pipe(
           map((userProfile) =>
             userProfileActions.getUserProfileSuccess({ userProfile }),
           ),
