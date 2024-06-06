@@ -25,7 +25,7 @@ import { AddCommentComponent } from '../add-comment/add-comment.component';
     @if (data$ | async; as data) {
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
-        <app-add-comment />
+        <app-add-comment [articleSlug]="articleSlug" />
         @if(data.isLoading) {
         <app-loading />
         } @for (comment of data.comments; track $index) {
