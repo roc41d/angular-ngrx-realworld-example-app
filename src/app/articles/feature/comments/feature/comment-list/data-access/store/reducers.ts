@@ -1,5 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { CommentState } from '../../interfaces/comment-state';
+import { CommentState } from '../../../../interfaces/comment-state';
 import { commentActions } from './actions';
 
 const initialState: CommentState = {

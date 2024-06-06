@@ -42,11 +42,4 @@ export class ArticlesService {
       .put<ArticleResponse>(fullUrl, articleRequest)
       .pipe(map((response) => response.article));
   }
-
-  getComments(slug: string): Observable<Comment[]> {
-    const fullUrl = `${environment.apiUrl}/articles/${slug}/comments`;
-    return this.http
-      .get<CommentsResponse>(fullUrl)
-      .pipe(map((response) => response.comments));
-  }
 }

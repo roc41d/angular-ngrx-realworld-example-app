@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Comment } from '../../interfaces/comment';
+import { Comment } from '../../../../interfaces/comment';
 
 export const commentActions = createActionGroup({
   source: 'comment',

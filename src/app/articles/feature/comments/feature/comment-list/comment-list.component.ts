@@ -3,12 +3,12 @@ import { Component, Input, inject } from '@angular/core';
 import { CommentItemsComponent } from '../../ui/comment-items/comment-items.component';
 import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
-import { commentActions } from '../../data-access/store/actions';
+import { commentActions } from './data-access/store/actions';
 import {
   selectCommentData,
   selectError,
   selectIsLoading,
-} from '../../data-access/store/reducers';
+} from './data-access/store/reducers';
 import { LoadingComponent } from '../../../../../shared/ui/loading.component';
 
 @Component({

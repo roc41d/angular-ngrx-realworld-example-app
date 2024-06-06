@@ -16,8 +16,8 @@ import * as createArticleEffects from './feature/create-article/data-access/stor
 import { EditArticleComponent } from './feature/edit-article/edit-article.component';
 import { editArticleFeatureKey, editArticleReducer } from './feature/edit-article/data-access/store/reducers';
 import * as editArticleEffects from './feature/edit-article/data-access/store/effects';
-import { commentFeatureKey, commentReducer } from './feature/comments/data-access/store/reducers';
-import * as commentsEffect from './feature/comments/data-access/store/effects';
+import { commentFeatureKey, commentReducer } from './feature/comments/feature/comment-list/data-access/store/reducers';
+import * as commentsEffect from './feature/comments/feature/comment-list/data-access/store/effects';
 
 export const articleRoutes: Route[] = [
   {
