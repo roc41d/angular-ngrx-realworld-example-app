@@ -18,3 +18,18 @@ export const getCommentsEffect = createEffect(
   },
   { functional: true },
 );
+
+export const deleteCommentEffect = createEffect(
+  (actions$ = inject(Actions), commentService = inject(CommentsService)) => {
+    return actions$.pipe(
+      ofType(commentActions.deleteComment),
+      switchMap(({ slug, commentId }) => {
+        return commentService.deleteComment(slug, commentId).pipe(
+          map(() => commentActions.deleteCommentSuccess()),
+          catchError(() => of(commentActions.deleteCommentFailure())),
+        );
+      }),
+    );
+  },
+  { functional: true },
+);

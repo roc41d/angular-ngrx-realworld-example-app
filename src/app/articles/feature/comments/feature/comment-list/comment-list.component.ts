@@ -27,11 +27,18 @@ import { CurrentUser } from '../../../../../shared/interfaces/current-user';
     @if (data$ | async; as data) {
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
-        <app-add-comment [articleSlug]="articleSlug" [currentUser]="currentUser" />
+        <app-add-comment
+          [articleSlug]="articleSlug"
+          [currentUser]="currentUser"
+        />
         @if(data.isLoading) {
         <app-loading />
         } @for (comment of data.comments; track $index) {
-        <app-comment-items [comment]="comment" />
+        <app-comment-items
+          [comment]="comment"
+          [currentUser]="currentUser"
+          (deleteComment)="deleteComment($event)"
+        />
         }
       </div>
     </div>
@@ -52,5 +59,11 @@ export class CommentListComponent {
 
   ngOnInit(): void {
     this.store.dispatch(commentActions.getComments({ slug: this.articleSlug }));
+  }
+
+  deleteComment(commentId: number): void {
+    this.store.dispatch(
+      commentActions.deleteComment({ slug: this.articleSlug, commentId }),
+    );
   }
 }

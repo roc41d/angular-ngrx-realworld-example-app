@@ -30,4 +30,9 @@ export class CommentsService {
       .post<CommentResponse>(fullUrl, commentRequest)
       .pipe(map((response) => response.comment));
   }
+
+  deleteComment(slug: string, commentId: number): Observable<void> {
+    const fullUrl = `${this.url}/${slug}/comments/${commentId}`;
+    return this.http.delete<void>(fullUrl);
+  }
 }

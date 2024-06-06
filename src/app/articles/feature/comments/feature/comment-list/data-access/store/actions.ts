@@ -7,5 +7,9 @@ export const commentActions = createActionGroup({
     'Get comments': props<{ slug: string }>(),
     'Get comments success': props<{ comments: Comment[] }>(),
     'Get comments failure': emptyProps(),
+
+    'Delete comment': props<{ slug: string; commentId: number }>(),
+    'Delete comment success': emptyProps(),
+    'Delete comment failure': emptyProps(),
   },
 });
