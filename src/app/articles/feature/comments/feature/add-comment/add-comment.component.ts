@@ -5,6 +5,7 @@ import { selectIsSubmitting } from './data-access/store/reducers';
 import { AsyncPipe } from '@angular/common';
 import { CommentRequest } from './interfaces/comment-request';
 import { addCommentActions } from './data-access/store/actions';
+import { CurrentUser } from '../../../../../shared/interfaces/current-user';
 
 @Component({
   selector: 'app-add-comment',
@@ -21,7 +22,7 @@ import { addCommentActions } from './data-access/store/actions';
         ></textarea>
       </div>
       <div class="card-footer">
-        <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+        <img [src]="currentUser.image" class="comment-author-img" />
         <button
           [disabled]="form.invalid || (isSubmitting$ | async)"
           class="btn btn-sm btn-primary"
@@ -34,6 +35,7 @@ import { addCommentActions } from './data-access/store/actions';
 })
 export class AddCommentComponent {
   @Input({ required: true }) articleSlug: string = '';
+  @Input({ required: true }) currentUser!: CurrentUser;
 
   private fb: FormBuilder = inject(FormBuilder);
   private store: Store = inject(Store);
@@ -49,6 +51,8 @@ export class AddCommentComponent {
       comment: this.form.getRawValue(),
     };
 
-    this.store.dispatch(addCommentActions.addComment({ slug: this.articleSlug, request }));
+    this.store.dispatch(
+      addCommentActions.addComment({ slug: this.articleSlug, request }),
+    );
   }
 }

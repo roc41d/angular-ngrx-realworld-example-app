@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { CommentItemsComponent } from '../../ui/comment-items/comment-items.component';
 import { Store } from '@ngrx/store';
@@ -11,12 +11,14 @@ import {
 } from './data-access/store/reducers';
 import { LoadingComponent } from '../../../../../shared/ui/loading.component';
 import { AddCommentComponent } from '../add-comment/add-comment.component';
+import { CurrentUser } from '../../../../../shared/interfaces/current-user';
 
 @Component({
   selector: 'app-comment-list',
   standalone: true,
   imports: [
     AsyncPipe,
+    JsonPipe,
     CommentItemsComponent,
     LoadingComponent,
     AddCommentComponent,
@@ -25,7 +27,7 @@ import { AddCommentComponent } from '../add-comment/add-comment.component';
     @if (data$ | async; as data) {
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
-        <app-add-comment [articleSlug]="articleSlug" />
+        <app-add-comment [articleSlug]="articleSlug" [currentUser]="currentUser" />
         @if(data.isLoading) {
         <app-loading />
         } @for (comment of data.comments; track $index) {
@@ -38,6 +40,7 @@ import { AddCommentComponent } from '../add-comment/add-comment.component';
 })
 export class CommentListComponent {
   @Input({ required: true }) articleSlug: string = '';
+  @Input({ required: true }) currentUser!: CurrentUser;
 
   private store: Store = inject(Store);
 

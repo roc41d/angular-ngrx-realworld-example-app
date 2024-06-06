@@ -27,7 +27,9 @@ import { DatePipe } from '@angular/common';
           class="comment-author"
           >{{ comment.author.username }}</a
         >
-        <span class="date-posted">{{ comment.createdAt | date : '' }}</span>
+        <span class="date-posted">{{
+          comment.createdAt | date : 'MMMM d, y'
+        }}</span>
       </div>
     </div>
   `,

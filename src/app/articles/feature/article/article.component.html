@@ -37,9 +37,22 @@
         (deleteArticle)="deleteArticle($event)"
       />
     </div>
+    @if (data.currentUser) {
+    <app-comment-list
+      [articleSlug]="data.article.slug"
+      [currentUser]="data.currentUser"
+    />
 
-    <app-comment-list [articleSlug]="data.article.slug" />
-    }
+    } @else {
+    <div class="row">
+      <div class="col-xs-12 col-md-8 offset-md-2">
+        <div>
+          <a routerLink="/login">Sign in</a> or
+          <a routerLink="/register">sign up</a> to add comments on this article.
+        </div>
+      </div>
+    </div>
+    } }
   </div>
 </div>
 }

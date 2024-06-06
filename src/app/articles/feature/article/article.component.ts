@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { articleActions } from './data-access/store/actions';
 import { combineLatest, filter, map } from 'rxjs';
@@ -21,6 +21,7 @@ import { CommentListComponent } from '../comments/feature/comment-list/comment-l
   standalone: true,
   imports: [
     AsyncPipe,
+    RouterLink,
     TagListComponent,
     ErrorMessageComponent,
     LoadingComponent,
@@ -54,6 +55,7 @@ export class ArticleComponent implements OnInit {
     isLoading: this.store.select(selectIsLoading),
     error: this.store.select(selectError),
     article: this.store.select(selectArticleData),
+    currentUser: this.store.select(selectCurrentUser),
     isAuthor: this.isAuthor$,
   });
 
