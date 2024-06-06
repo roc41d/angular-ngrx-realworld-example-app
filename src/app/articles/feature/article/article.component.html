@@ -4,7 +4,11 @@
   <div class="banner">
     <div class="container">
       <h1>{{ data.article.title }}</h1>
-      <app-author-banner [article]="data.article" [isAuthor]="data.isAuthor" (deleteArticle)="deleteArticle($event)" />
+      <app-author-banner
+        [article]="data.article"
+        [isAuthor]="data.isAuthor"
+        (deleteArticle)="deleteArticle($event)"
+      />
     </div>
   </div>
   }
@@ -27,10 +31,14 @@
     <hr />
 
     <div class="article-actions">
-      <app-author-banner [article]="data.article" [isAuthor]="data.isAuthor" (deleteArticle)="deleteArticle($event)" />
+      <app-author-banner
+        [article]="data.article"
+        [isAuthor]="data.isAuthor"
+        (deleteArticle)="deleteArticle($event)"
+      />
     </div>
 
-    <app-comments [article]="data.article" />
+    <app-comment-list [articleSlug]="data.article.slug" />
     }
   </div>
 </div>

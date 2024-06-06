@@ -14,7 +14,7 @@ import { ErrorMessageComponent } from '../../../shared/ui/error-message.componen
 import { TagListComponent } from '../../../shared/ui/tag-list.component';
 import { LoadingComponent } from '../../../shared/ui/loading.component';
 import { AuthorBannerComponent } from './ui/author-banner/author-banner.component';
-import { CommentsComponent } from '../comments/comments.component';
+import { CommentListComponent } from '../comments/feature/comment-list/comment-list.component';
 
 @Component({
   selector: 'app-article',
@@ -25,7 +25,7 @@ import { CommentsComponent } from '../comments/comments.component';
     ErrorMessageComponent,
     LoadingComponent,
     AuthorBannerComponent,
-    CommentsComponent,
+    CommentListComponent,
   ],
   templateUrl: './article.component.html',
   styleUrl: './article.component.scss',
