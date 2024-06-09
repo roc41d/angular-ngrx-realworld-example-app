@@ -4,6 +4,7 @@ import {
   settingsFeatureKey,
   settingsReducer,
 } from './settings/data-access/store/reducers';
+import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,7 @@ export const routes: Routes = [
       import('./your-feed/your-feed.component').then(
         (m) => m.YourFeedComponent,
       ),
+    canActivate: [authGuard],
   },
   {
     path: 'tags/:slug',
@@ -36,6 +38,7 @@ export const routes: Routes = [
     path: 'articles/new',
     loadChildren: () =>
       import('./articles/article.routes').then((m) => m.createArticleRoutes),
+    canActivate: [authGuard],
   },
   {
     path: 'articles/:slug',
@@ -46,12 +49,14 @@ export const routes: Routes = [
     path: 'articles/:slug/edit',
     loadChildren: () =>
       import('./articles/article.routes').then((m) => m.editArticleRoutes),
+    canActivate: [authGuard],
   },
   {
     path: 'settings',
     loadComponent: () =>
       import('./settings/settings.component').then((m) => m.SettingsComponent),
     providers: [provideState(settingsFeatureKey, settingsReducer)],
+    canActivate: [authGuard],
   },
   {
     path: 'profiles/:username',
