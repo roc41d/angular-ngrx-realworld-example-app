@@ -2,7 +2,8 @@
 <app-loading />
 } @if (data.error) {
 <app-error-message [message]="data.error" />
-} @if (data.feed) { @for (article of data.feed.articles; track $index) {
+} @if (data.feed && data.feed.articles.length > 0) { @for (article of
+data.feed.articles; track $index) {
 <div class="article-preview">
   <div class="article-meta">
     <a [routerLink]="['/profiles', article.author.username]">
@@ -38,4 +39,6 @@
   [currentPage]="currentPage"
 />
 
+} @else if (!data.isLoading && !data.error && data.feed && data.feed.articles.length === 0) {
+<div class="article-preview">No articles are here... yet.</div>
 } }
