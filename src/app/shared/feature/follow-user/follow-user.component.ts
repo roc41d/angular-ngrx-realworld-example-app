@@ -1,17 +1,19 @@
-import { Component, Input, inject } from '@angular/core';
-import { FollowUserService } from './data-access/follow-user.service';
-import { NgClass } from '@angular/common';
-import { Store } from '@ngrx/store';
+import { Component, Input, OnDestroy, inject } from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { ActionsSubject, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { selectCurrentUser } from '../../../auth/data-access/store/reducers';
 import { followUserActions } from './data-access/store/actions';
+import { Subject, filter, takeUntil } from 'rxjs';
+import { selectIsSubmitting } from './data-access/store/reducers';
 
 @Component({
   selector: 'app-follow-user',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, AsyncPipe],
   template: `
     <button
+    [disabled]="isSubmitting$ | async"
       (click)="toggleFollowUser()"
       class="btn btn-sm"
       [ngClass]="isFollowing ? 'btn-secondary' : 'btn-outline-secondary'"
@@ -22,14 +24,28 @@ import { followUserActions } from './data-access/store/actions';
     </button>
   `,
 })
-export class FollowUserComponent {
+export class FollowUserComponent implements OnDestroy {
   private store: Store = inject(Store);
   private router: Router = inject(Router);
+  private actionsSubj: ActionsSubject = inject(ActionsSubject);
 
   @Input({ required: true }) isFollowing: boolean = false;
   @Input({ required: true }) username: string = '';
+  private destroy$ = new Subject<void>();
 
   currentUser$ = this.store.select(selectCurrentUser);
+  isSubmitting$ = this.store.select(selectIsSubmitting);
+
+  constructor() {
+    this.actionsSubj.pipe(
+      filter(
+        (action) => action.type === followUserActions.followUserSuccess.type,
+      ),
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      this.isFollowing = !this.isFollowing;
+    });
+  }
 
   toggleFollowUser(): void {
     const username = encodeURIComponent(this.username);
@@ -43,8 +59,15 @@ export class FollowUserComponent {
             username,
           }),
         );
-        this.isFollowing = !this.isFollowing;
       }
     });
   }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+    console.log('folow/unfollow destroy');
+    
+  }
 }
+

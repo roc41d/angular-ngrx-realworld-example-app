@@ -29,6 +29,7 @@ import {
   addToFavoritesReducer,
 } from './shared/feature/add-to-favorites/data-access/store/reducers';
 import * as followUserEffect from './shared/feature/follow-user/data-access/store/effects';
+import { followUserFeatureKey, followUserReducer } from './shared/feature/follow-user/data-access/store/reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -41,6 +42,7 @@ export const appConfig: ApplicationConfig = {
     provideState(feedFeatureKey, feedReducer),
     provideState(popularTagsFeatureKey, popularTagsReducer),
     provideState(addToFavoritesFeatureKey, addToFavoritesReducer),
+    provideState(followUserFeatureKey, followUserReducer),
     provideEffects(
       authEffects,
       feedEffect,
