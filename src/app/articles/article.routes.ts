@@ -22,23 +22,17 @@ import * as editArticleEffects from './feature/edit-article/data-access/store/ef
 import {
   commentFeatureKey,
   commentReducer,
-} from './feature/comments/feature/comment-list/data-access/store/reducers';
-import * as commentsEffect from './feature/comments/feature/comment-list/data-access/store/effects';
-import {
-  addCommentFeatureKey,
-  addCommentReducer,
-} from './feature/comments/feature/add-comment/data-access/store/reducers';
-import * as addCommentsEffect from './feature/comments/feature/add-comment/data-access/store/effects';
+} from './feature/comments/data-access/store/reducers';
+import * as commentsEffect from './feature/comments/data-access/store/effects';
 
 export const articleRoutes: Route[] = [
   {
     path: '',
     component: ArticleComponent,
     providers: [
-      provideEffects(articleEffects, commentsEffect, addCommentsEffect),
+      provideEffects(articleEffects, commentsEffect),
       provideState(articleFeatureKey, articleReducer),
       provideState(commentFeatureKey, commentReducer),
-      provideState(addCommentFeatureKey, addCommentReducer),
     ],
   },
 ];

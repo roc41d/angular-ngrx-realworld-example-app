@@ -1,11 +1,12 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { selectIsSubmitting } from './data-access/store/reducers';
+import { ActionsSubject, Store } from '@ngrx/store';
 import { AsyncPipe } from '@angular/common';
-import { CommentRequest } from './interfaces/comment-request';
-import { addCommentActions } from './data-access/store/actions';
+import { CommentRequest } from '../../interfaces/comment-request';
 import { CurrentUser } from '../../../../../shared/interfaces/current-user';
+import { commentActions } from '../../data-access/store/actions';
+import { selectIsSubmitting } from '../../data-access/store/reducers';
+import { Subject, filter, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-add-comment',
@@ -33,12 +34,14 @@ import { CurrentUser } from '../../../../../shared/interfaces/current-user';
     </form>
   `,
 })
-export class AddCommentComponent {
+export class AddCommentComponent implements OnDestroy {
   @Input({ required: true }) articleSlug: string = '';
   @Input({ required: true }) currentUser!: CurrentUser;
 
   private fb: FormBuilder = inject(FormBuilder);
   private store: Store = inject(Store);
+  private actionsSubj: ActionsSubject = inject(ActionsSubject);
+  private destroy$ = new Subject<void>();
 
   form = this.fb.nonNullable.group({
     body: ['', Validators.required],
@@ -46,13 +49,31 @@ export class AddCommentComponent {
 
   isSubmitting$ = this.store.select(selectIsSubmitting);
 
+  constructor() {
+    this.actionsSubj
+      .pipe(
+        filter(
+          (action) => action.type === commentActions.addCommentSuccess.type,
+        ),
+        takeUntil(this.destroy$),
+      )
+      .subscribe(() => {
+        this.form.reset();
+      });
+  }
+
   onSubmit() {
     const request: CommentRequest = {
       comment: this.form.getRawValue(),
     };
 
     this.store.dispatch(
-      addCommentActions.addComment({ slug: this.articleSlug, request }),
+      commentActions.addComment({ slug: this.articleSlug, request }),
     );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -1,4 +1,4 @@
-import { Comment } from '../../../interfaces/comment';
+import { Comment } from './comment';
 
 export interface CommentResponse {
   comment: Comment;

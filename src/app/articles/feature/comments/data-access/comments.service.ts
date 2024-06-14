@@ -4,8 +4,8 @@ import { Observable, map } from 'rxjs';
 import { CommentsResponse } from '../interfaces/comments-respoonse';
 import { Comment } from '../interfaces/comment';
 import { environment } from '../../../../../environments/environment';
-import { CommentRequest } from '../feature/add-comment/interfaces/comment-request';
-import { CommentResponse } from '../feature/add-comment/interfaces/comment-response';
+import { CommentRequest } from '../interfaces/comment-request';
+import { CommentResponse } from '../interfaces/comment-response';
 
 @Injectable({
   providedIn: 'root',
