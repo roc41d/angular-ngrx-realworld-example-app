@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from '../../auth/data-access/store/reducers';
 import { AsyncPipe } from '@angular/common';
+import { authActions } from '../../auth/data-access/store/actions';
 
 @Component({
   selector: 'app-header',
@@ -36,6 +37,9 @@ import { AsyncPipe } from '@angular/common';
               &nbsp; {{ currentUser.username }}
             </a>
           </li>
+          <li class="nav-item sign-out" (click)="logout()">
+            <a class="nav-link"> Sign Out </a>
+          </li>
           } @else {
           <li class="nav-item">
             <a class="nav-link" routerLink="/login">Sign in</a>
@@ -48,9 +52,20 @@ import { AsyncPipe } from '@angular/common';
       </div>
     </nav>
   `,
+  styles: [
+    `
+      .sign-out {
+        cursor: pointer;
+      }
+    `,
+  ]
 })
 export class HeaderComponent {
   private store = inject(Store);
 
   currentUser$ = this.store.select(selectCurrentUser);
+
+  logout(): void {
+    this.store.dispatch(authActions.logout());
+  }
 }

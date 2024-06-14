@@ -8,7 +8,6 @@ export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   const currentUser = store.selectSignal(selectCurrentUser);
-  console.log('currentUser', currentUser());
 
   if (currentUser()) {
     return true;

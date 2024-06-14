@@ -22,7 +22,6 @@
     "@ngrx/router-store": "^17.2.0",
     "@ngrx/store": "^17.2.0",
     "@ngrx/store-devtools": "^17.2.0",
-    "or": "^0.2.0",
     "query-string": "^9.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
