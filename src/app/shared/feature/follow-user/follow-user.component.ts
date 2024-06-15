@@ -41,7 +41,7 @@ export class FollowUserComponent implements OnDestroy {
       filter(
         (action) => action.type === followUserActions.followUserSuccess.type,
       ),
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy$),
     ).subscribe(() => {
       this.isFollowing = !this.isFollowing;
     });
